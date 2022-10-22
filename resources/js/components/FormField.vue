@@ -79,7 +79,6 @@ export default {
     },
     mounted() {
         if (this.value) {
-            console.log(this.value);
             this.multi_date = JSON.parse(this.value);
         } else {
             this.multi_date = [this.currentDate()];
@@ -122,7 +121,6 @@ export default {
          */
         fill(formData) {
             var formatData = this.multi_date;
-            console.log(formData, "here");
 
             var formatData = this.multi_date.filter((date) => {
                 return (
@@ -132,7 +130,6 @@ export default {
             });
             formatData = JSON.stringify(formatData);
 
-            console.log(formData);
             if (formatData == "[]") {
                 formatData = "";
             }

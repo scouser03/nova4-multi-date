@@ -10,8 +10,6 @@
 
 <script>
 import flatPickr from "vue-flatpickr-component";
-// import flatpickr from "flatpickr";
-
 import "flatpickr/dist/flatpickr.css";
 import "flatpickr/dist/themes/airbnb.css";
 export default {
