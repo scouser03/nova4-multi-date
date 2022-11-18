@@ -13,7 +13,7 @@ composer require scouser03/nova4-multi-date
 ```php
 namespace App\Nova;
 
-use Scouser03\NovaMultiDate\NovaMultiDate;
+use Scouser03\Nova4MultiDate\Nova4MultiDate;
 
 
 class BlogPost extends Resource
@@ -25,7 +25,7 @@ class BlogPost extends Resource
         return [
             // ...
 
-            NovaMultiDate::make('multi dates', 'multi_dates'),
+            Nova4MultiDate::make('multi dates', 'multi_dates'),
 
             // ...
         ];
