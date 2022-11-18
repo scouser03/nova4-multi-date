@@ -8,15 +8,16 @@
         <template #field>
             <div class="flex flex-col">
                 <div v-for="(date, index) in multi_date">
-                    <div class="flex items-center mt-2">
-                        <div class="flex items-center">
+                    <div class="flex items-center mt-2 justify-between">
+                        <div class="flex items-center justify-between">
                             <label class="inline-block pt-2 leading-tight"
                                 >From:</label
                             >
                             <date-time-picker
                                 :placeholder="date.from_date"
-                                class="from-control w-full"
+                                class="from-control from-input w-full mx-2"
                                 :value="date.from_date"
+                                :disabled="field.readonly"
                                 :index="index"
                                 name="from_date"
                                 @change="setDate"
@@ -25,10 +26,11 @@
                         </div>
                         <div class="flex items-center">
                             <label class="inline-block mx-2 pt-2 leading-tight"
-                                >to:</label
+                                >To:</label
                             >
                             <date-time-picker
                                 class="ml-1 from-control w-full"
+                                :disabled="field.readonly"
                                 :placeholder="date.to_date"
                                 :value="date.to_date"
                                 :index="index"
@@ -37,6 +39,13 @@
                             >
                             </date-time-picker>
                         </div>
+                        <button
+                            :disabled="field.readonly"
+                            @click="destroy(index)"
+                            type="button"
+                        >
+                            <Icon type="trash" />
+                        </button>
                     </div>
                     <span
                         v-show="customErrors[index]"
@@ -48,6 +57,7 @@
                     </span>
                 </div>
                 <button
+                    :disabled="field.readonly"
                     @click="addDateRow"
                     type="button"
                     class="mt-2 shadow relative bg-primary-500 hover:bg-primary-400 text-white dark:text-gray-900 cursor-pointer rounded text-sm font-bold focus:outline-none focus:ring ring-primary-200 dark:ring-gray-600 inline-flex items-center justify-center h-9 px-3 shadow relative bg-primary-500 hover:bg-primary-400 text-white dark:text-gray-900"
@@ -136,8 +146,19 @@ export default {
             formData.append(this.field.attribute, formatData || "");
         },
         addDateRow() {
-            this.multi_date.push(this.currentDate());
+            if (!this.field.readonly) {
+                this.multi_date.push(this.currentDate());
+            }
         },
+
+        destroy(index) {
+            if (this.multi_date.length > 1 || !this.field.readonly) {
+                this.multi_date = this.multi_date.filter(
+                    (item, key) => index !== key
+                );
+            }
+        },
+
         currentDate() {
             return {
                 from_date: "-",
