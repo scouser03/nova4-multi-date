@@ -67,6 +67,7 @@ export default {
     watch: {
         value: function (newValue, oldValue) {
             if (this.flatpickr) {
+                console.log("here watch");
                 this.flatpickr.setDate(newValue);
             }
         },
@@ -92,6 +93,8 @@ export default {
                 minuteIncrement: this.minuteIncrement,
                 locale: { firstDayOfWeek: this.firstDayOfWeek },
             });
+
+            this.flatpickr.setDate(this.value);
         },
         onOpen(event) {
             Nova.$emit("datepicker-opened", event);
